@@ -23,10 +23,15 @@ public class TaskRunner {
 
     @PostConstruct
     public void runTask() {
+        fromDaysAgo = "7";
+        toDaysAgo = "0";
+        System.out.println("About to run task");
         if (Objects.nonNull(fromDaysAgo)) {
+            System.out.println("Running task");
             long checkedToDaysAgo = Objects.nonNull(toDaysAgo) ? Long.parseLong(toDaysAgo) : 0l;
             azureBlobStoreAccessor.getNotifyBlob(LocalDate.now().minusDays(Long.parseLong(fromDaysAgo)), LocalDate.now().minusDays(checkedToDaysAgo));
             azureBlobStoreAccessor.getEightByEightBlob(LocalDate.now().minusDays(Long.parseLong(fromDaysAgo)), LocalDate.now().minusDays(checkedToDaysAgo));
+            System.out.println("Ran task");
         }
     }
 
